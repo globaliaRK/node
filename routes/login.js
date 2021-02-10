@@ -15,25 +15,28 @@ Routes.post('/', async (req, res) => {
 
         if (user.length > 0) {
             if (await bcrypt.compare(password, user[0].password)) {
+                console.log(req.session);
+                req.session.login = true
+                console.log(req.session);
                 res.status(200).json({
                     status: 1,
                     data: "Login",
                     user: user[0]
                 });
             } else {
-                res.status(400).json({
+                res.status(200).json({
                     status: 0,
                     error: "Password Incorrect..."
                 });
             }
         } else {
-            res.status(400).json({
+            res.status(200).json({
                 status: 0,
                 error: "User Not Avalable..."
             });
         }
     } else {
-        res.status(400).json({
+        res.status(200).json({
             status: 0,
             error: "We Need Values(Email,Password)!"
         });

@@ -6,7 +6,7 @@ const users = require('./../models/users');
 
 
 
-Routes.get('/', async (req, res) => {
+Routes.post('/', async (req, res) => {
     const { name, email, password } = req.body;
     if (await (await users.find({ email })).length < 1) {
 
@@ -25,7 +25,7 @@ Routes.get('/', async (req, res) => {
                             user,
                         });
                     }).catch((err) => {
-                        res.status(400).json({
+                        res.status(200).json({
                             status: 0,
                             error: err.message
                         });
@@ -33,13 +33,13 @@ Routes.get('/', async (req, res) => {
 
                 })
                 .catch((err) => {
-                    res.status(400).json({
+                    res.status(200).json({
                         status: 0,
                         error: err.message
                     });
                 });
         } else {
-            res.status(400).json({
+            res.status(200).json({
                 status: 0,
                 error: "All Field Required...."
             });
@@ -47,7 +47,7 @@ Routes.get('/', async (req, res) => {
 
 
     } else {
-        res.status(400).json({
+        res.status(200).json({
             status: 0,
             error: "Account Already Created..."
         });
